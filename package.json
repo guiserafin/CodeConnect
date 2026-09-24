@@ -2,7 +2,10 @@
   "name": "codeconnect",
   "private": true,
   "version": "0.0.0",
-  "packageManager": "pnpm@9.15.0",
+  "packageManager": "pnpm@10.0.0",
+  "pnpm": {
+    "onlyBuiltDependencies": ["@nestjs/core"]
+  },
   "scripts": {
     "web": "pnpm --filter web",
     "web:dev": "pnpm --filter web dev",
