@@ -3,14 +3,24 @@ import { MemoryRouter } from 'react-router'
 import { describe, expect, it } from 'vitest'
 import App from './App'
 
-describe('App', () => {
-  it('renders the CodeConnect app shell', () => {
+describe('App routing', () => {
+  it('redirects the root path to the login page', () => {
     render(
-      <MemoryRouter>
+      <MemoryRouter initialEntries={['/']}>
         <App />
       </MemoryRouter>,
     )
 
-    expect(screen.getByText('CodeConnect')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Login' })).toBeInTheDocument()
+  })
+
+  it('renders the login page at /login', () => {
+    render(
+      <MemoryRouter initialEntries={['/login']}>
+        <App />
+      </MemoryRouter>,
+    )
+
+    expect(screen.getByRole('heading', { name: 'Login' })).toBeInTheDocument()
   })
 })
