@@ -6,8 +6,8 @@ import SocialLoginOptions, {
 } from '../../components/organisms/SocialLoginOptions'
 import AuthTemplate from '../../components/templates/AuthTemplate'
 
-function handleSubmit(values: LoginFormValues) {
-  console.info('login submit', values)
+function handleSubmit({ email, lembrar }: LoginFormValues) {
+  console.info('login submit', { email, lembrar })
 }
 
 function handleSocialLogin(provider: SocialProvider) {

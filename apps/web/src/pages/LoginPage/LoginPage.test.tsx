@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 import LoginPage from './LoginPage'
 
 describe('LoginPage', () => {
@@ -20,5 +21,25 @@ describe('LoginPage', () => {
       'href',
       '/cadastro',
     )
+  })
+
+  it('does not log the password when the form is submitted', async () => {
+    const user = userEvent.setup()
+    const infoSpy = vi.spyOn(console, 'info').mockImplementation(() => {})
+
+    render(
+      <MemoryRouter>
+        <LoginPage />
+      </MemoryRouter>,
+    )
+
+    await user.type(screen.getByLabelText('Email ou usuário'), 'guilherme')
+    await user.type(screen.getByLabelText('Senha'), 'segredo123')
+    await user.click(screen.getByRole('button', { name: /login/i }))
+
+    const loggedText = JSON.stringify(infoSpy.mock.calls)
+    expect(loggedText).not.toContain('segredo123')
+
+    infoSpy.mockRestore()
   })
 })
