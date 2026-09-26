@@ -6,7 +6,7 @@ interface DividerProps {
 
 function Divider({ children }: DividerProps) {
   return (
-    <div className="flex items-center gap-3 text-xs text-gray-medium">
+    <div className="flex items-center gap-3 text-sm text-offwhite">
       <span className="h-px flex-1 bg-gray-medium/40" />
       {children}
       <span className="h-px flex-1 bg-gray-medium/40" />

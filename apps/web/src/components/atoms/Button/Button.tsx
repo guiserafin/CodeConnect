@@ -8,7 +8,7 @@ function Button({ icon, children, className = '', type = 'button', ...props }: B
   return (
     <button
       type={type}
-      className={`flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 font-semibold text-dark transition hover:brightness-95 ${className}`}
+      className={`flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-lg font-semibold text-petrol transition hover:brightness-95 ${className}`}
       {...props}
     >
       {children}

@@ -11,8 +11,18 @@ interface AuthTemplateProps {
 
 function AuthTemplate({ bannerSrc, bannerAlt, title, subtitle, children }: AuthTemplateProps) {
   return (
-    <div className="flex min-h-svh items-center justify-center bg-dark p-4">
-      <div className="flex w-full max-w-4xl overflow-hidden rounded-2xl bg-graphite shadow-2xl">
+    <div className="relative flex min-h-svh items-center justify-center overflow-hidden bg-dark p-4">
+      <img
+        src="/auth-mark.svg"
+        alt=""
+        className="pointer-events-none absolute -bottom-16 -left-16 hidden w-64 opacity-30 md:block"
+      />
+      <img
+        src="/auth-mark.svg"
+        alt=""
+        className="pointer-events-none absolute -top-16 -right-16 hidden w-64 rotate-180 opacity-30 md:block"
+      />
+      <main className="relative flex w-full max-w-4xl overflow-hidden rounded-2xl bg-graphite shadow-2xl">
         <div className="hidden flex-1 md:block">
           <img src={bannerSrc} alt={bannerAlt} className="h-full w-full object-cover" />
         </div>
@@ -20,7 +30,7 @@ function AuthTemplate({ bannerSrc, bannerAlt, title, subtitle, children }: AuthT
           <Heading title={title} subtitle={subtitle} />
           {children}
         </div>
-      </div>
+      </main>
     </div>
   )
 }

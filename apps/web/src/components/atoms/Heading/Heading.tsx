@@ -7,7 +7,7 @@ function Heading({ title, subtitle }: HeadingProps) {
   return (
     <div>
       <h1 className="text-3xl font-semibold text-offwhite">{title}</h1>
-      {subtitle && <p className="mt-2 text-gray-medium">{subtitle}</p>}
+      {subtitle && <p className="mt-2 text-xl text-offwhite">{subtitle}</p>}
     </div>
   )
 }

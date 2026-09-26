@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import Button from './Button'
+import { axe } from '../../../test/axe'
 
 describe('Button', () => {
   it('renders its label and calls onClick when clicked', async () => {
@@ -18,5 +19,11 @@ describe('Button', () => {
     render(<Button icon={<span data-testid="icon" />}>Login</Button>)
 
     expect(screen.getByTestId('icon')).toBeInTheDocument()
+  })
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(<Button onClick={vi.fn()}>Login</Button>)
+
+    expect(await axe(container)).toHaveNoViolations()
   })
 })

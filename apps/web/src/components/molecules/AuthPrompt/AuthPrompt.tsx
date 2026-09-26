@@ -10,12 +10,12 @@ interface AuthPromptProps {
 
 function AuthPrompt({ question, linkLabel, to, icon }: AuthPromptProps) {
   return (
-    <p className="flex items-center justify-center gap-2 text-sm text-offwhite">
+    <p className="flex items-center justify-center gap-2 text-lg text-offwhite">
       <span>{question}</span>
       <TextLink to={to} variant="primary">
         {linkLabel}
       </TextLink>
-      {icon}
+      {icon && <span className="text-primary">{icon}</span>}
     </p>
   )
 }

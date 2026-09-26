@@ -57,9 +57,15 @@ Jest's `rootDir` is `apps/api/src`, and specs match `*.spec.ts` colocated with s
 
 ## Frontend conventions (apps/web)
 
-- **Atomic Design**: organize components by tier — `atoms/` (buttons, inputs, labels), `molecules/` (small combinations of atoms, e.g. a labeled input), `organisms/` (self-contained sections composed of molecules/atoms), `templates/` (page layouts/skeletons), and `pages/` (route-level components that wire templates to real data). Neither Tailwind nor this folder structure exist in the scaffold yet — set them up when the first real component is added rather than retrofitting later.
-- **Styling**: use Tailwind CSS utility classes; avoid introducing plain CSS files (like the current placeholder `App.css`) for new components.
-- **Component tests are mandatory**: every component (at every atomic tier) needs a test covering its essential usage — colocate as `ComponentName.test.tsx` next to `ComponentName.tsx`. No test tooling is installed yet (no Vitest/Jest/RTL in `apps/web/package.json`), so this needs to be set up as part of the first component work.
+- **Atomic Design**: organize components by tier — `atoms/` (buttons, inputs, labels), `molecules/` (small combinations of atoms, e.g. a labeled input), `organisms/` (self-contained sections composed of molecules/atoms), `templates/` (page layouts/skeletons), and `pages/` (route-level components that wire templates to real data).
+- **Styling**: use Tailwind CSS utility classes; avoid introducing plain CSS files for new components.
+- **Component tests are mandatory**: every component (at every atomic tier) needs a test covering its essential usage — colocate as `ComponentName.test.tsx` next to `ComponentName.tsx` (Vitest + React Testing Library).
+
+### Design tokens (colors & sizes)
+
+- **Never hardcode hex colors in Tailwind classes** (no `bg-[#171d1f]`, `text-[#e1e1e1]`, etc.). The project's palette lives in `apps/web/src/index.css` under `@theme` as `--color-*` variables (`primary`, `graphite`, `dark`, `petrol`, `gray-medium`, `offwhite`). Reference colors by their token name (`bg-primary`, `text-petrol`, `border-gray-medium`). If a Figma design introduces a color not yet in the palette, add it to the `@theme` block first (name it after its role or the Figma style name), then consume it by name — don't inline the hex value in a component.
+- **Never hardcode arbitrary font sizes** (no `text-[22px]`, `text-[15px]`, etc.). Map each Figma type size to the *nearest* Tailwind size token instead of introducing a custom value — e.g. a spec'd 18px maps to `text-lg` (exact), 22px maps to `text-xl`/`text-2xl` (nearest), 31px maps to `text-3xl` (nearest). The same applies to spacing/sizing utilities (`w-`, `h-`, `gap-`, `p-`, etc.) — prefer the closest step on Tailwind's default scale over an arbitrary `[Npx]` value. Only reach for an arbitrary value when no reasonably close token exists, and prefer that as a last resort.
+- **Reuse existing assets over recreating them**: when a Figma node exports an image or icon (not a font glyph), download and use that asset (e.g. via the Figma MCP tools) rather than hand-drawing an approximation — keep downloaded assets in `apps/web/public/`.
 
 ## Backend conventions (apps/api)
 

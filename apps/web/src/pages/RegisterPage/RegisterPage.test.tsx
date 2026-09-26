@@ -2,26 +2,24 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { MemoryRouter } from 'react-router'
 import { describe, expect, it, vi } from 'vitest'
-import LoginPage from './LoginPage'
+import RegisterPage from './RegisterPage'
 import { axe } from '../../test/axe'
 
-describe('LoginPage', () => {
-  it('renders the heading, the form, the social options and the signup link', () => {
+describe('RegisterPage', () => {
+  it('renders the heading, the form, the social options and the login link', () => {
     render(
       <MemoryRouter>
-        <LoginPage />
+        <RegisterPage />
       </MemoryRouter>,
     )
 
-    expect(screen.getByRole('heading', { name: 'Login' })).toBeInTheDocument()
-    expect(screen.getByLabelText('Email ou usuário')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: 'Cadastro' })).toBeInTheDocument()
+    expect(screen.getByLabelText('Nome')).toBeInTheDocument()
+    expect(screen.getByLabelText('Email')).toBeInTheDocument()
     expect(screen.getByLabelText('Senha')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Github' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Gmail' })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'Crie seu cadastro!' })).toHaveAttribute(
-      'href',
-      '/cadastro',
-    )
+    expect(screen.getByRole('link', { name: 'Faça seu login!' })).toHaveAttribute('href', '/login')
     expect(screen.getByRole('main')).toBeInTheDocument()
   })
 
@@ -31,13 +29,14 @@ describe('LoginPage', () => {
 
     render(
       <MemoryRouter>
-        <LoginPage />
+        <RegisterPage />
       </MemoryRouter>,
     )
 
-    await user.type(screen.getByLabelText('Email ou usuário'), 'guilherme')
+    await user.type(screen.getByLabelText('Nome'), 'Guilherme Carvalho')
+    await user.type(screen.getByLabelText('Email'), 'guilherme@example.com')
     await user.type(screen.getByLabelText('Senha'), 'segredo123')
-    await user.click(screen.getByRole('button', { name: /login/i }))
+    await user.click(screen.getByRole('button', { name: /cadastrar/i }))
 
     const loggedText = JSON.stringify(infoSpy.mock.calls)
     expect(loggedText).not.toContain('segredo123')
@@ -48,7 +47,7 @@ describe('LoginPage', () => {
   it('has no accessibility violations', async () => {
     const { container } = render(
       <MemoryRouter>
-        <LoginPage />
+        <RegisterPage />
       </MemoryRouter>,
     )
 

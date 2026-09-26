@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import SocialLoginOptions from './SocialLoginOptions'
+import { axe } from '../../../test/axe'
 
 describe('SocialLoginOptions', () => {
   it('calls onSocialLogin with the matching provider for each button', async () => {
@@ -15,5 +16,11 @@ describe('SocialLoginOptions', () => {
 
     expect(onSocialLogin).toHaveBeenNthCalledWith(1, 'github')
     expect(onSocialLogin).toHaveBeenNthCalledWith(2, 'google')
+  })
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(<SocialLoginOptions onSocialLogin={vi.fn()} />)
+
+    expect(await axe(container)).toHaveNoViolations()
   })
 })
